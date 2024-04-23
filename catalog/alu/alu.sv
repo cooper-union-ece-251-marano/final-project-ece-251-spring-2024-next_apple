@@ -30,7 +30,7 @@ module alu
             3'b000: out = srcA && srcB;            // and
             3'b001: out = srcA || srcB;            // or
             3'b010: out = srcA + srcB;             // add
-            3'b011: out = srcA * srcB;             // mult
+            3'b011: out = srcA << srcB;             //  sll
             3'b100: out = !(srcA && srcB);         // nand
             3'b101: out = !(srcA || srcB);         // nor
             3'b110: out = srcA - srcB;             // sub
