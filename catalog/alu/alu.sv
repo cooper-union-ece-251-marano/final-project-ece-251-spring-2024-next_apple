@@ -21,7 +21,8 @@ module alu
     // ---------------- PORT DEFINITIONS ----------------------------
     input [n-1:0] srcA, srcB,
     input [2:0] alucontrol,
-    output reg [n-1:0] out
+    output reg [n-1:0] out,
+    output reg zeroo
     );
 
     // ---------------- MODULE DESIGN IMPLEMENTATION ----------------
@@ -36,8 +37,12 @@ module alu
             3'b110: out = srcA - srcB;             // sub
             3'b111: out = (srcA < srcB) ? 0 : 1;   // slt
         endcase
-
+        if (srcA == srcB)
+            zeroo = 1;
+        else zeroo = 0;
     end
+
+
 
 
     

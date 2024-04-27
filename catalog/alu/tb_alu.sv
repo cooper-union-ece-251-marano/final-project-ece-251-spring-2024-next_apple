@@ -21,12 +21,13 @@ module tb_alu;
     reg [N-1:0] SRCA, SRCB;
     reg [2:0] ALUCONTROL;
     logic [N-1:0] OUT;
+    logic ZEROO;
 
 
     initial begin
         $dumpfile("alu.vcd");
         $dumpvars(0, uut);
-        $monitor("srcA = %b, srcB = %b, alucontrol = %b, out = %b", SRCA, SRCB, ALUCONTROL, OUT);
+        $monitor("srcA = %b, srcB = %b, alucontrol = %b, out = %b, zero = %b", SRCA, SRCB, ALUCONTROL, OUT, ZEROO);
        
     end
 
@@ -53,7 +54,7 @@ module tb_alu;
       ALUCONTROL <= 3'b100;
       #100
       SRCA <= #N'b1000000000010010;
-      SRCB <= #N'b1010011100010010;
+      SRCB <= #N'b1000000000010010;
       ALUCONTROL <= 3'b101;
       #100
       SRCA <= #N'b1000000000010010;
@@ -67,7 +68,7 @@ module tb_alu;
    end
 
    alu #(.n(N)) uut(
-        .srcA(SRCA), .srcB(SRCB), .alucontrol(ALUCONTROL), .out(OUT)
+        .srcA(SRCA), .srcB(SRCB), .alucontrol(ALUCONTROL), .out(OUT), .zeroo(ZEROO)
    );
 
 endmodule
