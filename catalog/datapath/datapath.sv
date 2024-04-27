@@ -24,11 +24,11 @@
 `include "../signext/signext.sv"
 
 module datapath
-    #(parameter n = 32)(
+    #(parameter n = 16)(
     //
     // ---------------- PORT DEFINITIONS ----------------
     //
-    input  logic        clk, reset,
+    input  logic        clk, reset, pc_enable, //set,
     input  logic        memtoreg, pcsrc,
     input  logic        alusrc, regdst,
     input  logic        regwrite, jump,
@@ -50,8 +50,8 @@ module datapath
     logic [(n-1):0] result;
 
     // "next PC" logic
-    dff #(n)    prog_counter(clk, reset, pcnext, pc);
-    adder       pcadd1(pc, 16'b100, 0, pcplus4, cout);
+    dff #(n)    prog_counter(clk, 0, reset, pc_enable, pcnext, pc);
+    adder       pcadd1(pc, #n'b100, 0, pcplus4, cout);
     sl2         immsh(signimm, signimmsh);
     adder       pcadd2(pcplus4, signimmsh, 0, pcbranch, cout2);
     mux2 #(n)   pcbrmux(pcplus4, pcbranch, pcsrc, pcnextbr);
