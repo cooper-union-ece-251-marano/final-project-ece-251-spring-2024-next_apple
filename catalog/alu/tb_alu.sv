@@ -17,7 +17,10 @@
 `include "alu.sv"
 
 module tb_alu;
-    parameter n = 32;
+    parameter N = 16;
+    reg [N-1:0] SRCA, SRCB;
+    reg ALUCONTROL;
+    
 
 endmodule
 `endif // TB_ALU

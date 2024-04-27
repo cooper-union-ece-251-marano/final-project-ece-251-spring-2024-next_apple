@@ -5,7 +5,7 @@
 // 
 //     Create Date: 2023-02-07
 //     Module Name: adder
-//     Description: simple behavorial adder
+//     Description: simple behavorial adder. For 
 //
 // Revision: 1.0
 //
