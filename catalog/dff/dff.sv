@@ -20,7 +20,7 @@ module dff
     //
     input  logic clk, set, reset, enable,
     input  logic [(n-1):0] d,
-    output reg [(n-1):0] q, q_n
+    output reg [(n-1):0] q //q_n
 );
     //
     // ---------------- MODULE DESIGN IMPLEMENTATION ----------------
@@ -29,22 +29,22 @@ module dff
         if (enable) begin
 		if (set) begin
 			q = ~0;
-			q_n = ~q;
+		//	q_n = ~q;
 		end
 		else if (reset) begin
 			q = 0;
-			q_n = ~q;
+		//	q_n = ~q;
 
 		end
 		else begin
 			q <= d;
-			q_n = ~q;
+		//	q_n = ~q;
 		end
         end
         
 	else begin
             q = #n'bz;
-	    q_n = #n'bz;
+	  //  q_n = #n'bz;
         end
 end
 

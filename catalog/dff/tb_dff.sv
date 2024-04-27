@@ -26,8 +26,7 @@ module tb_dff;
     logic SET;
     logic [(n-1):0] D;
     logic [(n-1):0] Q;
-    logic [(n-1):0] Q_n;
-
+   
    initial begin
         $dumpfile("dff.vcd");
         $dumpvars(0, uut0, uut1);
@@ -53,8 +52,7 @@ module tb_dff;
     end
 
     dff uut0(
-        .clk(CLK), .set(SET), .reset(RESET), .enable(EN), .d(D), .q(Q), .q_n(Q_n)
-    );
+        .clk(CLK), .set(SET), .reset(RESET), .enable(EN), .d(D), .q(Q));
 
    clock uut1(
         .ENABLE(CLK_EN),
