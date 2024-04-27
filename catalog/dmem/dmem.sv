@@ -22,6 +22,7 @@ module dmem
     // ---------------- PORT DEFINITIONS ----------------
     //
     input  logic           clk, write_enable,
+    // write_enable is MemWrite
     input  logic [(n-1):0] addr, writedata,
     output logic [(n-1):0] readdata
 );

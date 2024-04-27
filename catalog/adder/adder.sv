@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 // The Cooper Union
 // ECE 251 Spring 2024
-// Engineer: YOUR NAMES
+// Engineer: Lamiya Rangwala, Dylan Meyer O'Connor
 // 
 //     Create Date: 2023-02-07
 //     Module Name: adder
@@ -16,12 +16,22 @@
 `timescale 1ns/100ps
 
 module adder
-    #(parameter n = 32)(
+    #(parameter n = 16)(
+        input [n-1:0] a,
+        input [n-1:0] b,
+        input cin,
+        output reg [n-1:0] sum,
+        output reg cout
     //
     // ---------------- PORT DEFINITIONS ----------------
     //
 
 );
+
+    always_comb 
+        {cout, sum} = a + b + cin;
+    
+
     //
     // ---------------- MODULE DESIGN IMPLEMENTATION ----------------
     //

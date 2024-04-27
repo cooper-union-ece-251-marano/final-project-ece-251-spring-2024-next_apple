@@ -39,6 +39,7 @@ module datapath
     output logic [(n-1):0] aluout, writedata,
     input  logic [(n-1):0] readdata
 );
+
     //
     // ---------------- MODULE DESIGN IMPLEMENTATION ----------------
     //
@@ -49,7 +50,7 @@ module datapath
     logic [(n-1):0] result;
 
     // "next PC" logic
-    dff #(n)    pcreg(clk, reset, pcnext, pc);
+    dff #(n)    prog_counter(clk, reset, pcnext, pc);
     adder       pcadd1(pc, 32'b100, pcplus4);
     sl2         immsh(signimm, signimmsh);
     adder       pcadd2(pcplus4, signimmsh, pcbranch);

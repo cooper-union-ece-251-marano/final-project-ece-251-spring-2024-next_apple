@@ -16,7 +16,7 @@
 `timescale 1ns/100ps
 
 module aludec
-    #(parameter n = 32)(
+    #(parameter n = 16)(
     //
     // ---------------- PORT DEFINITIONS ----------------
     //
@@ -28,25 +28,25 @@ module aludec
     //
     // ---------------- MODULE DESIGN IMPLEMENTATION ----------------
     //
-    always @ (aluop, funct) begin
-        casez (aluop)
-            00: alucontrol = 010;  // add
-            ?1: alucontrol = 110;  // sub
-            1?: begin
+    always_comb begin
+        case (aluop)
+            2'b00: alucontrol = 3'b010;  // add (for lw/sw/addi)
+            2'b01: alucontrol = 3'b110;  // sub (for beq)
+            default:
                 case (funct)
-                    000: alucontrol = 010 // add
-                    001: alucontrol = 110 // sub
-                    010: alucontrol = 000 // and
-                    011: alucontrol = 001 // or
-                    100: alucontrol = 111 // slt
-                    101: alucontrol = 010 // mult
-                    110: alucontrol = 110 // nand
-                    111: alucontrol = 000 // nor
+                    3'b000: alucontrol = 010 // add
+                    3'b001: alucontrol = 110 // sub
+                    3'b010: alucontrol = 000 // and
+                    3'b011: alucontrol = 001 // or
+                    3'b100: alucontrol = 111 // slt
+                    3'b101: alucontrol = 010 // mult
+                    3'b110: alucontrol = 110 // nand
+                    3'b111: alucontrol = 000 // nor
 
 
 
                 endcase
-            end
+            
 
 
         endcase
