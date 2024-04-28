@@ -1,8 +1,8 @@
 //////////////////////////////////////////////////////////////////////////////////
 // The Cooper Union
 // ECE 251 Spring 2024
-// Engineer: Prof Rob Marano
-// 
+// Engineer: Lamiya Rangwala and Dylan Meyer O'Connor
+//
 //     Create Date: 2023-02-07
 //     Module Name: regfile
 //     Description: 32-bit RISC register file
@@ -17,13 +17,13 @@
 
 module regfile
     // n=bit length of register; r=bit length of addr of registers
-    #(parameter n = 32, parameter r = 5)(
+    #(parameter n = 16, parameter r = 3)(
     //
     // ---------------- PORT DEFINITIONS ----------------
     //
-    input  logic        clk, 
+    input  logic        clock, 
     input  logic        we3, 
-    input  logic [(r-1):0]  ra1, ra2, wa3, 
+    input  logic [(r-1):0] ra1, ra2, wa3, 
     input  logic [(n-1):0] wd3, 
     output logic [(n-1):0] rd1, rd2
     );
@@ -39,9 +39,10 @@ module regfile
     // note: for pipelined processor, write third port
     // on falling edge of clk
 
-    always @(posedge clk)
+    always_ff @(posedge clock)
         if (we3) rf[wa3] <= wd3;	
 
+    // assign the zero register 
     assign rd1 = (ra1 != 0) ? rf[ra1] : 0;
     assign rd2 = (ra2 != 0) ? rf[ra2] : 0;
 endmodule
