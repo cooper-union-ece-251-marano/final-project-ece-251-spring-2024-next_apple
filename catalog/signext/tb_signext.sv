@@ -17,24 +17,26 @@
 `include "signext.sv"
 
 module tb_sl2;
-    parameter n = 32; // #bits for an operand
+    parameter n = 16; // #bits for an operand
     parameter i = n/2; // #bits for an immediate
-    logic [(i-1):0] a;
-    logic [(n-1):0] y;
+    logic [(i-1):0] A;
+    logic [(n-1):0] Y;
 
    initial begin
         $dumpfile("signext.vcd");
         $dumpvars(0, uut);
         //$monitor("a = %b (0x%0h)(%0d) y = %b (0x%0h)(%0d) ", a, a, a, y, y, y);
-        $monitor("time=%0t \t a=%b y=%b",$realtime, a, y);
+        $monitor("time=%0t \t a=%b y=%b",$realtime, A, Y);
     end
 
     initial begin
-        a <= #i'h8000;
+        #10 A <= #i'h80;
+	#10 A <= #i'haa;
+
     end
 
     signext uut(
-        .A(a), .Y(y)
+        .a(A), .out(Y)
     );
 endmodule
 `endif // TB_SIGNEXT
