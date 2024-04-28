@@ -40,7 +40,7 @@ module aludec
                     3'b011: alucontrol = 001 // or
                     3'b100: alucontrol = 111 // slt
                     3'b101: alucontrol = 010 // mult
-                    3'b110: alucontrol = 110 // nand
+                    3'b110: alucontrol = 110 // mult
                     3'b111: alucontrol = 000 // nor
 
 

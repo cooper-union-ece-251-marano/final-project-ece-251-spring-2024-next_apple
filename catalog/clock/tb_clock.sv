@@ -35,8 +35,8 @@ module tb_clock;
     end
 
    clock uut(
-        .ENABLE(enable),
-        .CLOCK(clk)
+        .en(enable),
+        .clock(clk)
     );
 endmodule
 
