@@ -22,15 +22,15 @@ module regfile
     // ---------------- PORT DEFINITIONS ----------------
     //
     input  logic        clock, 
-    input  logic        we3, 
-    input  logic [(r-1):0] ra1, ra2, wa3, 
-    input  logic [(n-1):0] wd3, 
-    output logic [(n-1):0] rd1, rd2
+    input  logic        regWrite, 
+    input  logic [(r-1):0] readAddr1, readAddr2, writeAddr3, 
+    input  logic [(n-1):0] writeData3, 
+    output logic [(n-1):0] readData1, readData2
     );
     //
     // ---------------- MODULE DESIGN IMPLEMENTATION ----------------
     //
-    logic [(n-1):0] rf[(2**5-1):0];
+    logic [(n-1):0] registers[(2**5-1):0]; // registers is an array of 32 registers each having n-1 bits
 
     // three ported register file
     // read two ports combinationally
@@ -40,11 +40,11 @@ module regfile
     // on falling edge of clk
 
     always_ff @(posedge clock)
-        if (we3) rf[wa3] <= wd3;	
+        if (regWrite) registers[writeAddr3] <= writeData3;	
 
-    // assign the zero register 
-    assign rd1 = (ra1 != 0) ? rf[ra1] : 0;
-    assign rd2 = (ra2 != 0) ? rf[ra2] : 0;
+    // assign the zero register/write data to registers
+    assign readData1 = (readAddr1 != 0) ? registers[readAddr1] : 0;
+    assign readData2 = (readAddr2 != 0) ? registers[readAddr2] : 0;
 endmodule
 
 `endif // REGFILE
