@@ -17,22 +17,36 @@
 `include "sl2.sv"
 
 module tb_sl2;
-    parameter n = 32;
-    logic [(n-1):0] a, y;
+    parameter N = 16;
+    logic [(N-1):0] NUMBER, NUMBER4;
 
    initial begin
         $dumpfile("sl2.vcd");
         $dumpvars(0, uut);
         //$monitor("a = %0b (0x%0h)(%0d) y = %0b (0x%0h)(%0d) ", a, a, a, y, y, y);
-        $monitor("time=%0t \t a=%b y=%b",$realtime, a, y);
+        // $monitor("time=%0t \t a=%b y=%b",$realtime, NUMBER, NUMBER4);
     end
 
-    initial begin
-        a <= #n'h0000000F;
+     initial begin : initialize_signals
+        NUMBER <= #N'b0;
+    
     end
 
-    sl2 uut(
-        .A(a), .Y(y)
+    initial begin: apply_stimulus
+      reg[N-1:0] invect; //invect[3] terminates the for loop
+      for (invect = 0; invect < 256; invect = invect + 1)
+      begin
+         // {a, b, cin} = invect [3:0];
+         // #10 $display ("abciN = %b, cout = %b, sum = %b", {a, b, ciN}, cout, sum);
+         {NUMBER} = invect;
+         #10 $display("NUMBER=%b NUMBER4=%b",
+            NUMBER, NUMBER4);
+      end
+      $finish;
+   end
+
+    sl2 #(.n(N)) uut(
+        .number(NUMBER), .number4(NUMBER4)
     );
 endmodule
 `endif // TB_SL2

@@ -16,17 +16,17 @@
 `timescale 1ns/100ps
 
 module sl2
-    #(parameter n = 32)(
+    #(parameter n = 16)(
     //
     // ---------------- PORT DEFINITIONS ----------------
     //
-    input  logic [(n-1):0] A,
-    output logic [(n-1):0] Y
+    input  logic [(n-1):0] number,
+    output logic [(n-1):0] number4
 );
     //
     // ---------------- MODULE DESIGN IMPLEMENTATION ----------------
     //
-    assign Y = {A[(n-3):0], 2'b00};
+    assign number4 = {number[(n-3):0], 2'b00};
 endmodule
 
 `endif // SL2

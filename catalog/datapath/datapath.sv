@@ -58,7 +58,7 @@ module datapath
     mux2 #(n)   pcmux(pcnextbr, {pcplus4[31:28], instr[25:0], 2'b00}, jump, pcnext);
 
     // register file logic
-    regfile     rf(clk, regwrite, instr[25:21], instr[20:16], writereg, result, srca, writedata);
+    regfile     registers(clk, regwrite, instr[25:21], instr[20:16], writereg, result, srca, writedata);
     mux2 #(5)   wrmux(instr[20:16], instr[15:11], regdst, writereg);
     mux2 #(n)   resmux(aluout, readdata, memtoreg, result);
     signext     se(instr[15:0], signimm);
