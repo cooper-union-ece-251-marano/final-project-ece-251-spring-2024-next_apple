@@ -4,29 +4,29 @@
 // Engineer: Prof Rob Marano
 // 
 //     Create Date: 2023-02-07
-//     Module Name: sl2
-//     Description: shift left by 2 (multiply by 4)
+//     Module Name: sl1
+//     Description: shift left by 1 (multiply by 2)
 //
 // Revision: 1.0
 //
 //////////////////////////////////////////////////////////////////////////////////
-`ifndef SL2
-`define SL2
+`ifndef SL1
+`define SL1
 
 `timescale 1ns/100ps
 
-module sl2
+module sl1
     #(parameter n = 16)(
     //
     // ---------------- PORT DEFINITIONS ----------------
     //
     input  logic [(n-1):0] number,
-    output logic [(n-1):0] number4
+    output logic [(n-1):0] number2
 );
     //
     // ---------------- MODULE DESIGN IMPLEMENTATION ----------------
     //
-    assign number4 = {number[(n-3):0], 2'b00};
+    assign number2 = {number[(n-2):0], 1'b0};
 endmodule
 
-`endif // SL2
+`endif // SL1

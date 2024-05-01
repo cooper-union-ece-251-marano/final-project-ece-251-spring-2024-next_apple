@@ -19,7 +19,7 @@
 `include "../alu/alu.sv"
 `include "../dff/dff.sv"
 `include "../adder/adder.sv"
-`include "../sl2/sl2.sv"
+`include "../sl1/sl1.sv"
 `include "../mux2/mux2.sv"
 `include "../signext/signext.sv"
 
@@ -51,17 +51,17 @@ module datapath
 
     // "next PC" logic
     dff #(n)    prog_counter(clk, 0, reset, pc_enable, pcnext, pc);
-    adder       pcadd1(pc, #n'b100, 0, pcplus4, cout);
-    sl2         immsh(signimm, signimmsh);
+    adder       pcadd1(pc, #n'b10, 0, pcplus4, cout);
+    sl1         immsh(signimm, signimmsh);
     adder       pcadd2(pcplus4, signimmsh, 0, pcbranch, cout2);
     mux2 #(n)   pcbrmux(pcplus4, pcbranch, pcsrc, pcnextbr);
-    mux2 #(n)   pcmux(pcnextbr, {pcplus4[31:28], instr[25:0], 2'b00}, jump, pcnext);
+    mux2 #(n)   pcmux(pcnextbr, {pcplus4[15:14], instr[12:0], 1'b0}, jump, pcnext);
 
     // register file logic
-    regfile     registers(clk, regwrite, instr[25:21], instr[20:16], writereg, result, srca, writedata);
-    mux2 #(5)   wrmux(instr[20:16], instr[15:11], regdst, writereg);
+    regfile     registers(clk, regwrite, instr[12:10], instr[9:7], writereg, result, srca, writedata);
+    mux2 #(5)   wrmux(instr[9:7], instr[6:4], regdst, writereg);
     mux2 #(n)   resmux(aluout, readdata, memtoreg, result);
-    signext     se(instr[15:0], signimm);
+    signext     se(instr[6:0], signimm);
 
     // ALU logic
     mux2 #(n)   srcbmux(writedata, signimm, alusrc, srcb);
