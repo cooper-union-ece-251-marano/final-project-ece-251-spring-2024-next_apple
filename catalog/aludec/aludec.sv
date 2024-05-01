@@ -22,8 +22,8 @@ module aludec
     //
     input aluop,
     input funct,
-    output alucontrol,
-    )
+    output alucontrol
+        )
 
     //
     // ---------------- MODULE DESIGN IMPLEMENTATION ----------------
@@ -34,14 +34,14 @@ module aludec
             2'b01: alucontrol = 3'b110;  // sub (for beq)
             default:
                 case (funct)
-                    3'b000: alucontrol = 010 // add
-                    3'b001: alucontrol = 110 // sub
-                    3'b010: alucontrol = 000 // and
-                    3'b011: alucontrol = 001 // or
-                    3'b100: alucontrol = 111 // slt
-                    3'b101: alucontrol = 010 // mult
-                    3'b110: alucontrol = 110 // mult
-                    3'b111: alucontrol = 000 // nor
+                    3'b000: alucontrol = 000 // and
+                    3'b001: alucontrol = 001 // or
+                    3'b010: alucontrol = 010 // add
+                    3'b011: alucontrol = 011 // sll
+                    3'b100: alucontrol = 100 // slr
+                    3'b101: alucontrol = 101 // mult
+                    3'b110: alucontrol = 110 // slr
+                    3'b111: alucontrol = 000 // not
 
 
 
