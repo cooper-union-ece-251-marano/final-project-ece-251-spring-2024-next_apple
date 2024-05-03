@@ -28,7 +28,7 @@ module tb_maindec;
     	$dumpfile("maindec.vcd");
 	$dumpvars(0, uut);
         //$monitor("enable = %b clk = %b", enable, clk);
-        $monitor("time=%0t \t op=%b controls=%b%b%b%b%b%b ",$realtime,OP,REGWRITE,
+        $monitor("time=%0t \t op=%b controls=%b%b%b%b%b%b%b ",$realtime,OP,REGWRITE,
         REGDST,ALUSRC,BRANCH,MEMWRITE,MEM2REG,JUMP,AluOp);
 	
     end
@@ -45,6 +45,10 @@ module tb_maindec;
 	
 	
     end 
+
+    maindec uut(
+	.op(OP), .memtoreg(MEM2REG), .memwrite(MEMWRITE), .branch(BRANCH), .alusrc(ALUSRC), .regdst(REGDST), .regwrite(REGWRITE), .jump(JUMP), .aluop(AluOp) 
+    );
 
 endmodule
 `endif // TB_MAINDEC
