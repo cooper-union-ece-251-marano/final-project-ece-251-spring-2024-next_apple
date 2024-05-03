@@ -1,11 +1,11 @@
 //////////////////////////////////////////////////////////////////////////////////
 // The Cooper Union
 // ECE 251 Spring 2024
-// Engineer: Prof Rob Marano
+// Engineer: Dylan Meyer-O'Connor & Lamiya Rangwala 
 // 
-//     Create Date: 2023-02-07
+//     Create Date: 5/1/2024
 //     Module Name: maindec
-//     Description: 32-bit RISC-based CPU main decoder (MIPS)
+//     Description: 16-bit RISC-based CPU main decoder (MIPS)
 //
 // Revision: 1.0
 //
