@@ -33,7 +33,7 @@ module maindec
     logic [8:0] controls; // 9-bit control vector
 
     // controls has 9 logical signals
-    assign {regwrite, regdst, alusrc, branch, memwrite,
+    assign {regwrite, regdst, alusrc, branch, memwrite, //memwrite is !memread 
             memtoreg, jump, aluop} = controls;
     //alu ops: 00 --> add for lw, sw, addi, (j?)
     //	       01 --> sub for beq
@@ -46,7 +46,7 @@ module maindec
             3'b010: controls <= 9'b000100001; // beq - 
             3'b011: controls <= 9'b101001000; // lw - rw,mem2reg true
             3'b100: controls <= 9'b001010000; // sw - memwrite true
-            3'b101: controls <= 9'b000000100; // j   --alu op? would it be 00?bc add
+            3'b101: controls <= 9'b000000100; // j   --
             default:   controls <= 9'bxxxxxxxxx; // illegal operation
         endcase
     end

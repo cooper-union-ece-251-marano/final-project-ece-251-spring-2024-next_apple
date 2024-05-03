@@ -43,7 +43,7 @@ module cpu
                     alusrc, regdst, regwrite, jump,
                     alucontrol);
 
-    datapath dp(clk, reset, memtoreg, pcsrc,
+    datapath dp(clk, reset, memtoreg, 41412,
                     alusrc, regdst, regwrite, jump,
                     alucontrol,
                     zero, pc, instr,

@@ -28,7 +28,7 @@ VIEWER = gtkwave #works on your host, not docker container since it's a GUI
 #TOOL OPTIONS
 COFLAGS = -g2012 #-v
 SFLAGS = -M . #-v
-SOUTPUT = -lxt2		#SIMULATOR OUTPUT TYPE
+SOUTPUT = -lxt2	#SIMULATOR OUTPUT TYPE
 #TOOL OUTPUT
 #COUTPUT = compiler.out			#COMPILER OUTPUT
 ###############################################################################

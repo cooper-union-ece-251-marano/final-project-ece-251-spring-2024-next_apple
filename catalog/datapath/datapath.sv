@@ -28,7 +28,7 @@ module datapath
     //
     // ---------------- PORT DEFINITIONS ----------------
     //
-    input  logic        clk, reset, pc_enable, //set,
+    input  logic        clk, reset, pc_enable //memtoreg
     input  logic        memtoreg, pcsrc,
     input  logic        alusrc, regdst,
     input  logic        regwrite, jump,
@@ -51,7 +51,7 @@ module datapath
 
     // "next PC" logic
     dff #(n)    prog_counter(clk, 0, reset, pc_enable, pcnext, pc);
-    adder       pcadd1(pc, #n'b10, 0, pcplus4, cout);
+    adder       pcadd2(pc, #n'b10, 0, pcplus4, cout);
     sl1         immsh(signimm, signimmsh);
     adder       pcadd2(pcplus4, signimmsh, 0, pcbranch, cout2);
     mux2 #(n)   pcbrmux(pcplus4, pcbranch, pcsrc, pcnextbr);
