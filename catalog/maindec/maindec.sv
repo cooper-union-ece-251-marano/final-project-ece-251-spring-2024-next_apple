@@ -20,7 +20,7 @@ module maindec
     //
     // ---------------- PORT DEFINITIONS ----------------
     //
-    input  logic [5:0] op,
+    input  logic [2:0] op,
     output logic       memtoreg, memwrite,
     output logic       branch, alusrc,
     output logic       regdst, regwrite,
@@ -35,15 +35,18 @@ module maindec
     // controls has 9 logical signals
     assign {regwrite, regdst, alusrc, branch, memwrite,
             memtoreg, jump, aluop} = controls;
+    //alu ops: 00 --> add for lw, sw, addi, (j?)
+    //	       01 --> sub for beq
+    //	       11 --> rtype (normal alu operation w 2 read regs)
 
     always @* begin
         case(op)
-            6'b000000: controls <= 9'b110000010; // RTYPE
-            6'b100011: controls <= 9'b101001000; // LW
-            6'b101011: controls <= 9'b001010000; // SW
-            6'b000100: controls <= 9'b000100001; // BEQ
-            6'b001000: controls <= 9'b101000000; // ADDI
-            6'b000010: controls <= 9'b000000100; // J
+            3'b000: controls <= 9'b111000011; // rtype - rw,rd, alusrc == true
+            3'b001: controls <= 9'b100000000; // addi - rw true (alusrc,rd false)
+            3'b010: controls <= 9'b000100001; // beq - 
+            3'b011: controls <= 9'b101001000; // lw - rw,mem2reg true
+            3'b100: controls <= 9'b001010000; // sw - memwrite true
+            3'b101: controls <= 9'b000000100; // j   --alu op? would it be 00?bc add
             default:   controls <= 9'bxxxxxxxxx; // illegal operation
         endcase
     end
