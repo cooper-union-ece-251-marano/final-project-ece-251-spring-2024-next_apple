@@ -33,17 +33,18 @@ module cpu
     //
     // ---------------- MODULE DESIGN IMPLEMENTATION ----------------
     //
-
+    
     // cpu internal components
     logic       memtoreg, alusrc, regdst, regwrite, jump, pcsrc, zero;
     logic [2:0] alucontrol;
+
     
     controller c(instr[(15):13], instr[2:0], zero,
                     memtoreg, memwrite, pcsrc,
                     alusrc, regdst, regwrite, jump,
                     alucontrol);
 
-    datapath dp(clk, reset, memtoreg, 41412,
+    datapath dp(clk, reset, 1, memtoreg, pcsrc, //added 1 after reset b/c pc_enable must equal 1 to function
                     alusrc, regdst, regwrite, jump,
                     alucontrol,
                     zero, pc, instr,
