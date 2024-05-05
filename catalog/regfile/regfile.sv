@@ -25,7 +25,7 @@ module regfile
     input  logic        regWrite, 
     input  logic [(r-1):0] readAddr1, readAddr2, writeAddr3, 
     input  logic [(n-1):0] writeData3, 
-    output logic [(n-1):0] readData1, readData2
+    output reg [(n-1):0] readData1, readData2
     );
     //
     // ---------------- MODULE DESIGN IMPLEMENTATION ----------------

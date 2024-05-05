@@ -44,7 +44,7 @@ module cpu
                     alusrc, regdst, regwrite, jump,
                     alucontrol);
 
-    datapath dp(clk, reset, 1, memtoreg, pcsrc, //added 1 after reset b/c pc_enable must equal 1 to function
+    datapath dp(clk, reset, 1'b1, memtoreg, pcsrc, //added 1 after reset b/c pc_enable must equal 1 to function
                     alusrc, regdst, regwrite, jump,
                     alucontrol,
                     zero, pc, instr,
