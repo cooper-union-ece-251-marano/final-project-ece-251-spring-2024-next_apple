@@ -19,7 +19,8 @@
 module tb_datapath;
     parameter N = 16;
     logic CLK;
-    logic RESET, PC_ENABLE, MEMTOREG, PCSRC;
+    logic RESET, MEMTOREG, PCSRC;
+    // logic PC_ENABLE;
     logic ALUSRC, REGDST, REGWRITE, JUMP;
     logic [2:0] ALUCONTROL;
     wire ZERO;
@@ -51,7 +52,7 @@ module tb_datapath;
         INSTR <= 0;
         READDATA <= 0;
     end
-    // always #5 CLK <= ~CLK;
+    always #5 CLK <= ~CLK;
 
     initial begin
     #10 CLK <= 1;
@@ -71,7 +72,7 @@ module tb_datapath;
     datapath uut (
     .clk(CLK),
     .reset(RESET),
-    .pc_enable(PC_ENABLE),
+    // .pc_enable(PC_ENABLE),
     .memtoreg(MEMTOREG),
     .pcsrc(PCSRC),
     .alusrc(ALUSRC),

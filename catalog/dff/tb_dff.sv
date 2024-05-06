@@ -55,8 +55,8 @@ module tb_dff;
         .clk(CLK), .set(SET), .reset(RESET), .enable(EN), .d(D), .q(Q));
 
    clock uut1(
-        .ENABLE(CLK_EN),
-        .CLOCK(CLK)
+        .en(CLK_EN),
+        .clock(CLK)
     );
 endmodule
 `endif // TB_DFF

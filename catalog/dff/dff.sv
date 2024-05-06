@@ -31,7 +31,7 @@ module dff
 			q = ~0;
 		//	q_n = ~q;
 		end
-		else if (reset) begin
+		else if (reset==0) begin
 			q = 0;
 		//	q_n = ~q;
 

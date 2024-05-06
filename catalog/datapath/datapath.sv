@@ -28,7 +28,7 @@ module datapath
     //
     // ---------------- PORT DEFINITIONS ----------------
     //
-    input  logic        clk, reset, pc_enable, //pc_enable should be 1. reset should be 0, set should be 0.
+    input  logic        clk, reset, //pc_enable should be 1. reset should be 0, set should be 0.
     input  logic        memtoreg, pcsrc,      //all these come from controller
     input  logic        alusrc, regdst,
     input  logic        regwrite, jump,
@@ -51,7 +51,7 @@ module datapath
     reg [(n-1):0] pcnext;
 
     // "next PC" logic
-    dff #(n)    prog_counter(clk, 1'b0, reset, pc_enable, pcnext, pc);
+    dff #(n)    prog_counter(clk, 1'b0, reset, 1'b1, pcnext, pc);
     adder       pcadd2(pc, 16'b0000000000000010, 1'b0, pcplus4, cout);
     sl1         immsh(signimm, signimmsh);
     adder       pcadd22(pcplus4, signimmsh, 1'b0, pcbranch, cout2);
