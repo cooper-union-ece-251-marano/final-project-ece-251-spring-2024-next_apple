@@ -23,7 +23,7 @@ module tb_datapath;
     logic ALUSRC, REGDST, REGWRITE, JUMP;
     logic [2:0] ALUCONTROL;
     wire ZERO;
-    reg [N-1:0] PC;
+    wire [N-1:0] PC;
     logic [N-1:0] INSTR;
     wire [N-1:0] ALUOUT, WRITEDATA;
     logic [N-1:0] READDATA;
@@ -38,9 +38,8 @@ module tb_datapath;
 
     
   
-    always #5 CLK <= ~CLK;
+
     initial begin
-//	PC [(N-1):0] <= 0;
         CLK <= 0;
         RESET <= 1;
         REGDST <= 0;
@@ -52,11 +51,10 @@ module tb_datapath;
         INSTR <= 0;
         READDATA <= 0;
     end
+    // always #5 CLK <= ~CLK;
 
     initial begin
-
-
-
+    #10 CLK <= 1;
     #10 REGDST <= 1;
     #10 REGWRITE <= 1;
     #10 MEMTOREG <= 0;

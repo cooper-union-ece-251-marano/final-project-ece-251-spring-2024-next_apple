@@ -17,7 +17,7 @@
 
 module imem
 // n=bit length of register; r=bit length of addr to limit memory and not crash your verilog emulator
-    #(parameter n = 16, parameter r = 5)( // what should we make r?
+    #(parameter n = 16, parameter r = 6)( // what should we make r?
     //
     // ---------------- PORT DEFINITIONS ----------------
     //

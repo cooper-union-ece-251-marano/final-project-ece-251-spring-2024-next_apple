@@ -38,7 +38,7 @@ module computer
     // the RISC CPU
     cpu mips(clk, reset, pc, instr, memwrite, dataadr, writedata, readdata);
     // the instruction memory ("text segment") in main memory
-    imem imem(pc[5:1], instr);  //not sure what pc[7:2] is, but made it pc[7:1] bc our instructions are aligned by 2 bytes, not 4
+    imem imem(pc[7:2], instr);  //not sure what pc[7:2] is, but made it pc[7:1] bc our instructions are aligned by 2 bytes, not 4
     // the data memory ("data segment") in main memory
     dmem dmem(clk, memwrite, dataadr, writedata, readdata);
 

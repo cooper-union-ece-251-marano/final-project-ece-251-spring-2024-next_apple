@@ -18,7 +18,7 @@
 
 module tb_imem;
     parameter n = 16; // bit length of registers/memory
-    parameter r = 5; // we are only addressing 64=2**6 mem slots in imem
+    parameter r = 6; // we are only addressing 64=2**6 mem slots in imem
     logic [(n-1):0] readdata;
     logic [(r-1):0] imem_addr;
 
@@ -30,9 +30,9 @@ module tb_imem;
     end
 
     initial begin
-        #10 imem_addr <= #(r)'b00000;
-        #10 imem_addr <= #(r)'b00001;
-        #10 imem_addr <= #(r)'b00010;
+        #10 imem_addr <= #(r)'b000000;
+        #10 imem_addr <= #(r)'b000001;
+        #10 imem_addr <= #(r)'b000010;
         $finish;
     end
 

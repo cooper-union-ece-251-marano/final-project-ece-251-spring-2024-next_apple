@@ -44,13 +44,12 @@ module datapath
     // ---------------- MODULE DESIGN IMPLEMENTATION ----------------
     //
     logic [2:0]  writereg; // come from RegDst mux
-    logic [(n-1):0] pcnext, pcnextbr, pcplus4, pcbranch;
+    logic [(n-1):0] pcnextbr, pcplus4, pcbranch;
     logic [(n-1):0] signimm, signimmsh; // comes from instr[6:0]
     logic [(n-1):0] srca, srcb; // comes from reg file and ALUsrc mux
     logic [(n-1):0] result; // comes from MemToReg mux
-    initial begin
-    	pcnext = 0;
-    end
+    reg [(n-1):0] pcnext;
+
     // "next PC" logic
     dff #(n)    prog_counter(clk, 1'b0, reset, pc_enable, pcnext, pc);
     adder       pcadd2(pc, 16'b0000000000000010, 1'b0, pcplus4, cout);
