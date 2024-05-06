@@ -19,7 +19,7 @@ module dff
     // ---------------- PORT DEFINITIONS ----------------
     //
     input  logic clk, set, reset, enable,
-    input  logic [(n-1):0] d,
+    input  wire [(n-1):0] d,
     output reg [(n-1):0] q //q_n
 );
     //

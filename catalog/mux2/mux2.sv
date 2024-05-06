@@ -23,7 +23,7 @@ module mux2
     //
     input  logic [(n-1):0] a, b,
     input  logic select,
-    output logic [(n-1):0] out
+    output wire [(n-1):0] out
 );
     //
     // ---------------- MODULE DESIGN IMPLEMENTATION ----------------
