@@ -22,25 +22,25 @@ module tb_mux2;
     logic SEL;
     logic [(n-1):0] A, B;
     logic [(n-1):0] Y;
-    wire clk;
-    logic enable;
+    wire CLK;
+    logic ENABLE;
 
 
    initial begin
         $dumpfile("mux2.vcd");
         $dumpvars(0, uut0, uut1);
         // $monitor("s = %0b d0 = (0x%0h)(%0d) d1 = (0x%0h)(%0d) y = (0x%0h)(%0d)", s, d0, d0, d1, d1, y, y);
-        $monitor("time=%0t \t enable=%0b s=%0b y=%h d0=%h d1=%h",$realtime, enable, SEL, Y, A, B);
+        $monitor("time=%0t \t enable=%0b s=%0b y=%h d0=%h d1=%h",$realtime, ENABLE, SEL, Y, A, B);
     end
 
     initial begin
         A <= #n'h8000;
         B <= #n'h0001;
-        enable <= 0;
-        #10 enable <= 1;
+        ENABLE <= 0;
+        #10 ENABLE <= 1;
         #10 SEL <= 1'b0;
         #20 SEL <= 1'b1;
-        #100 enable <= 0;
+        #100 ENABLE <= 0;
 	#100 SEL <= 1'b0;
         $finish;
     end
@@ -50,8 +50,8 @@ module tb_mux2;
     );
 
     clock uut1(
-        .ENABLE(enable),
-        .CLOCK(clk)
+        .en(ENABLE),
+        .clock(CLOCK)
     );
 endmodule
 `endif // TB_MUX2
