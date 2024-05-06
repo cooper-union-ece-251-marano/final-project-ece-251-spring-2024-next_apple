@@ -38,6 +38,7 @@ module tb_computer;
   initial begin
     firstTest = 1'b0;
     secondTest = 1'b0;
+   
     $dumpfile("tb_computer.vcd");
     $dumpvars(0,dut1,clk,reset,writedata,dataadr,memwrite);
     $monitor("t=%t\t0x%7h\t%7d\t%8d",$realtime,writedata,dataadr,memwrite);
@@ -56,6 +57,7 @@ module tb_computer;
   always @(posedge clk)
   begin
       $display("+");
+      $display("\treset = %b", reset);
       $display("\t+instr = 0x%h",dut.instr);
       $display("\t+op = 0b%b",dut.mips.c.op);
       $display("\t+controls = 0b%b",dut.mips.c.md.controls);
@@ -86,6 +88,8 @@ module tb_computer;
   // monitor what happens at negedge of clock transition
   always @(negedge clk) begin
     $display("-");
+    $display("\treset = %b", reset);
+
     $display("\t+instr = 0x%h",dut.instr);
     $display("\t+op =0b%b",dut.mips.c.op);
     $display("\t+controls = 0b%b",dut.mips.c.md.controls);
@@ -116,9 +120,9 @@ module tb_computer;
   always @(negedge clk, posedge clk) begin
     // check results
     // TODO: You need to update the checks below
-     if (dut.dmem.RAM[64] === 16'h0000)
+     if (dut.dmem.RAM[31] === 16'h0000)
        begin
-         $display("Successfully wrote 0x%4h at RAM[%3d]",16'h0000,64);
+         $display("Successfully wrote 0x%4h at RAM[%3]",16'h0000,);
          firstTest = 1'b1;
        end
 /*
