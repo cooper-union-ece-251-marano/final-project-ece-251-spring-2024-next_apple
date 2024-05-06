@@ -33,7 +33,7 @@ module tb_datapath;
     	$dumpfile("datapath.vcd");
 	    $dumpvars(0, uut);
 //	$monitor("",);
-        $monitor("time=%0t \t alu control = %b, \t alu out = %h \t write data = %h\tinstr= %h\t pc= %b\t read data= %b ",$realtime,ALUCONTROL, ALUOUT, WRITEDATA,INSTR,PC,READDATA);
+        $monitor("time=%0t \t alu control = %b, \t alu out = %h \t \tinstr= %h\t pc= %b\t read data= %b ",$realtime,ALUCONTROL, ALUOUT,INSTR,PC,READDATA);
 //	$monitor("")
     end
 
@@ -64,7 +64,7 @@ module tb_datapath;
     #10 ALUCONTROL <= 4'b0000; // Provide ALU control signal for your instruction
     #10 INSTR <= 16'h208a; // Provide instruction
     #10 READDATA <= 16'h0001;
-    #10 WRITEDATA <= 16'h00ba;
+    // #10 WRITEDATA <= 16'h00ba;
     $finish;
     end
 

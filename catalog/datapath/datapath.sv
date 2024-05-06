@@ -54,6 +54,9 @@ module datapath
     // end
 
     // "next PC" logic
+    // dff #(n)    prog_counter(clk, 1'b0, reset, 1'b1, pcnext, pc);
+
+
     dff #(n)    prog_counter(clk, 1'b0, reset, 1'b1, pcnext, pc);
     adder       pcadd2(pc, 16'b0000000000000001, 1'b0, pcplus4, cout);
     sl1         immsh(signimm, signimmsh);

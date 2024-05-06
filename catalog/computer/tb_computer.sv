@@ -58,6 +58,7 @@ module tb_computer;
   begin
       $display("+");
       $display("\treset = %b", reset);
+      $display("\pc = %b", dut.pc);
       $display("\t+instr = 0x%h",dut.instr);
       $display("\t+op = 0b%b",dut.mips.c.op);
       $display("\t+controls = 0b%b",dut.mips.c.md.controls);
