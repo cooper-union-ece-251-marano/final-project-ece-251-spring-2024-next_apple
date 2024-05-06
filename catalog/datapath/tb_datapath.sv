@@ -23,7 +23,7 @@ module tb_datapath;
     logic ALUSRC, REGDST, REGWRITE, JUMP;
     logic [2:0] ALUCONTROL;
     wire ZERO;
-    wire [N-1:0] PC;
+    reg [N-1:0] PC;
     logic [N-1:0] INSTR;
     wire [N-1:0] ALUOUT, WRITEDATA;
     logic [N-1:0] READDATA;
@@ -31,13 +31,16 @@ module tb_datapath;
     initial begin
     	$dumpfile("datapath.vcd");
 	    $dumpvars(0, uut);
-        $monitor("time=%0t \t alu control = %b, \t alu out = %b \t write data = %b",$realtime,ALUCONTROL, ALUOUT, WRITEDATA);
+//	$monitor("",);
+        $monitor("time=%0t \t alu control = %b, \t alu out = %h \t write data = %h\tinstr= %h\t pc= %b\t read data= %b ",$realtime,ALUCONTROL, ALUOUT, WRITEDATA,INSTR,PC,READDATA);
+//	$monitor("")
     end
 
     
   
     always #5 CLK <= ~CLK;
     initial begin
+//	PC [(N-1):0] <= 0;
         CLK <= 0;
         RESET <= 1;
         REGDST <= 0;
@@ -60,7 +63,7 @@ module tb_datapath;
     #10 JUMP <= 0;
     #10 ALUSRC <= 0;
     #10 ALUCONTROL <= 4'b0000; // Provide ALU control signal for your instruction
-    #10 INSTR <= 16'b0000111011011001; // Provide instruction
+    #10 INSTR <= 16'h208a; // Provide instruction
     #10 READDATA <= 16'h0001;
     $finish;
     end

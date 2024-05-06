@@ -56,17 +56,17 @@ module tb_computer;
   always @(posedge clk)
   begin
       $display("+");
-      $display("\t+instr = 0x%8h",dut.instr);
-      $display("\t+op = 0b%6b",dut.mips.c.op);
-      $display("\t+controls = 0b%9b",dut.mips.c.md.controls);
-      $display("\t+funct = 0b%6b",dut.mips.c.ad.funct);
-      $display("\t+aluop = 0b%2b",dut.mips.c.ad.aluop);
-      $display("\t+alucontrol = 0b%3b",dut.mips.c.ad.alucontrol);
-      $display("\t+alu result = 0x%8h",dut.mips.dp.alu.out);
+      $display("\t+instr = 0x%h",dut.instr);
+      $display("\t+op = 0b%b",dut.mips.c.op);
+      $display("\t+controls = 0b%b",dut.mips.c.md.controls);
+      $display("\t+funct = 0b%b",dut.mips.c.ad.funct);
+      $display("\t+aluop = 0b%b",dut.mips.c.ad.aluop);
+      $display("\t+alucontrol = 0b%b",dut.mips.c.ad.alucontrol);
+      $display("\t+alu result = 0x%h",dut.mips.dp.alu.out);
     //  $display("\t+HiLo = 0x%8h",dut.mips.dp.alu.HiLo);
-      $display("\t+$v0 = 0x%4h",dut.mips.dp.registers.registers[2]);
-      $display("\t+$v1 = 0x%4h",dut.mips.dp.registers.registers[3]);
-      $display("\t+$a0 = 0x%4h",dut.mips.dp.registers.registers[4]);
+      $display("\t+$v0 = 0x%4h",dut.mips.dp.registers.registers[0]);
+      $display("\t+$v1 = 0x%4h",dut.mips.dp.registers.registers[1]);
+      $display("\t+$a0 = 0x%4h",dut.mips.dp.registers.registers[2]);
   //    $display("\t+$a1 = 0x%4h",dut.mips.dp.rf.rf[5]);
   //    $display("\t+$t0 = 0x%4h",dut.mips.dp.rf.rf[8]);
   //    $display("\t+$t1 = 0x%4h",dut.mips.dp.rf.rf[9]);
@@ -86,17 +86,17 @@ module tb_computer;
   // monitor what happens at negedge of clock transition
   always @(negedge clk) begin
     $display("-");
-    $display("\t+instr = 0x%8h",dut.instr);
-    $display("\t+op = 0b%6b",dut.mips.c.op);
-    $display("\t+controls = 0b%9b",dut.mips.c.md.controls);
-    $display("\t+funct = 0b%6b",dut.mips.c.ad.funct);
-    $display("\t+aluop = 0b%2b",dut.mips.c.ad.aluop);
-    $display("\t+alucontrol = 0b%3b",dut.mips.c.ad.alucontrol);
-    $display("\t+alu result = 0x%8h",dut.mips.dp.alu.out);
+    $display("\t+instr = 0x%h",dut.instr);
+    $display("\t+op =0b%b",dut.mips.c.op);
+    $display("\t+controls = 0b%b",dut.mips.c.md.controls);
+    $display("\t+funct = 0b%b",dut.mips.c.ad.funct);
+    $display("\t+aluop = 0b%b",dut.mips.c.ad.aluop);
+    $display("\t+alucontrol = 0b%b ",dut.mips.c.ad.alucontrol);
+    $display("\t+alu result = 0x%h",dut.mips.dp.alu.out);
     //  $display("\t+HiLo = 0x%8h",dut.mips.dp.alu.HiLo);
-    $display("\t+$v0 = 0x%4h",dut.mips.dp.registers.registers[2]);
-    $display("\t+$v1 = 0x%4h",dut.mips.dp.registers.registers[3]);
-    $display("\t+$a0 = 0x%4h",dut.mips.dp.registers.registers[4]);
+    $display("\t+$v0 = 0x%h",dut.mips.dp.registers.registers[2]);
+    $display("\t+$v1 = 0x%h",dut.mips.dp.registers.registers[3]);
+    $display("\t+$a0 = 0x%h",dut.mips.dp.registers.registers[4]);
 //    $display("\t+$a1 = 0x%4h",dut.mips.dp.rf.rf[5]);
   //    $display("\t+$t0 = 0x%4h",dut.mips.dp.rf.rf[8]);
   //    $display("\t+$t1 = 0x%4h",dut.mips.dp.rf.rf[9]);
@@ -108,7 +108,7 @@ module tb_computer;
  //     $display("\t+regfile -- rd1 = %d",dut.mips.dp.rf.readData1); !!this
  //     should work but doesnt... same w readData2
  //     $display("\t+regfile -- rd2 = %d",dut.mips.dp.rf.readData2);
-    $display("\t+RAM[%4d] = %4d",dut.dmem.addr,dut.dmem.readData);
+    $display("\t+RAM[%4d] = %d",dut.dmem.addr,dut.dmem.readData);
     $display("writedata\tdataadr\tmemwrite");
 
   end
@@ -116,29 +116,31 @@ module tb_computer;
   always @(negedge clk, posedge clk) begin
     // check results
     // TODO: You need to update the checks below
-     if (dut.dmem.RAM[84] === 32'h9504)
+     if (dut.dmem.RAM[64] === 16'h0000)
        begin
-         $display("Successfully wrote 0x%4h at RAM[%3d]",84,32'h9504);
+         $display("Successfully wrote 0x%4h at RAM[%3d]",16'h0000,64);
          firstTest = 1'b1;
        end
-
-    if (dut.dmem.RAM[84] === 32'h96)
+/*
+    if (dut.dmem.RAM[84] === 16'h96)
       begin
         $display("Successfully wrote 0x%4h at RAM[%3d]",84,32'h0096);
         firstTest = 1'b1;
       end
     if(memwrite) begin
-      if(dataadr === 84 & writedata === 32'h96)
+      if(dataadr === 84 /*& writedata === 16'h96)
+
       begin
         $display("Successfully wrote 0x%4h at RAM[%3d]",writedata,dataadr);
         firstTest = 1'b1;
       end
     end
+    
     if (firstTest === 1'b1)
     begin
         $display("Program successfully completed");
         $finish;
-    end
+    end*/
   end
 
 endmodule

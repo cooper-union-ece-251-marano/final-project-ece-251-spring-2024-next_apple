@@ -48,7 +48,9 @@ module datapath
     logic [(n-1):0] signimm, signimmsh; // comes from instr[6:0]
     logic [(n-1):0] srca, srcb; // comes from reg file and ALUsrc mux
     logic [(n-1):0] result; // comes from MemToReg mux
-
+    initial begin
+    	pcnext = 0;
+    end
     // "next PC" logic
     dff #(n)    prog_counter(clk, 1'b0, reset, pc_enable, pcnext, pc);
     adder       pcadd2(pc, 16'b0000000000000010, 1'b0, pcplus4, cout);
