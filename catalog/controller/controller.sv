@@ -29,13 +29,14 @@ module controller
     output logic       pcsrc, alusrc,
     output logic       regdst, regwrite,
     output logic       jump,
+    output logic       branch,
     output logic [2:0] alucontrol
 );
     //
     // ---------------- MODULE DESIGN IMPLEMENTATION ----------------
     //
     logic [1:0] aluop;
-    logic       branch;
+    // logic       branch;
     
     // CPU main decoder
     maindec md(op, memtoreg, memwrite, branch, alusrc, regdst, regwrite, jump, aluop);

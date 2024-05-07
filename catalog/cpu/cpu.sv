@@ -41,7 +41,7 @@ module cpu
     
     controller c(instr[(15):13], instr[2:0], zero,
                     memtoreg, memwrite, pcsrc,
-                    alusrc, regdst, regwrite, jump,
+                    alusrc, regdst, regwrite, jump, branch,
                     alucontrol);
 
     datapath dp(clk, reset, memtoreg, pcsrc, //added 1 after reset b/c pc_enable must equal 1 to function
