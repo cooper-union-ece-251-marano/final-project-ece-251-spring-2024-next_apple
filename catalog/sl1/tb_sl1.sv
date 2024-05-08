@@ -36,8 +36,6 @@ module tb_sl1;
       reg[N-1:0] invect; //invect[3] terminates the for loop
       for (invect = 0; invect < 256; invect = invect + 1)
       begin
-         // {a, b, cin} = invect [3:0];
-         // #10 $display ("abciN = %b, cout = %b, sum = %b", {a, b, ciN}, cout, sum);
          {NUMBER} = invect;
          #10 $display("NUMBER=%b NUMBER2=%b",
             NUMBER, NUMBER2);
