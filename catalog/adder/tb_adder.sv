@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 // The Cooper Union
 // ECE 251 Spring 2024
-// Engineer: YOUR NAMES
+// Engineer: Lamiya Rangwala, Dylan Meyer O'Connor
 // 
 //     Create Date: 2023-02-07
 //     Module Name: tb_adder
@@ -17,22 +17,33 @@
 `include "adder.sv"
 
 module tb_adder;
-    parameter n = 32;
-    logic [(n-1):0] a, b, y;
-
-   initial begin
-        $dumpfile("adder.vcd");
-        $dumpvars(0, uut);
-        $monitor("a = 0x%0h b = 0x%0h y = 0x%0h", a, b, y);
-    end
+    parameter N = 16;
+    reg [(N-1):0] A, B;
+    reg CIN; 
+    logic [(N-1):0] SUM;
+    logic COUT;
 
     initial begin
-        a <= #n'hFFFFFFFF;
-        b <= #n'hFFFFFFFF;
+        $dumpfile("adder.vcd");
+        $dumpvars(0, uut);
+       
     end
 
-    adder uut(
-        .A(a), .B(b), .Y(y)
+    initial
+    begin: apply_stimulus
+      reg[N-1:0] invect; //invect[3] terminates the for loop
+      for (invect = 0; invect < 256; invect = invect + 1)
+      begin
+         {A} = invect [N-1:0];
+         {B} =$random;
+         {CIN} = invect[0];
+         #10 $display("A=%b, B=%b, CIN=%b, SUM=%b, COUT=%b", A, B, CIN, SUM, COUT);
+      end
+      $finish;
+   end
+
+    adder #(.n(N)) uut(
+        .a(A), .b(B), .cin(CIN) , .sum(SUM), .cout(COUT)
     );
 endmodule
 `endif // TB_ADDER

@@ -15,13 +15,17 @@
 
 `timescale 1ns/100ps
 `include "imem.sv"
+`include "../dff/dff.sv"
+
 
 module tb_imem;
-    parameter n = 32; // bit length of registers/memory
-    parameter r = 6; // we are only addressing 64=2**6 mem slots in imem
+    parameter n = 16; // bit length of registers/memory
+    parameter r = 5; // we are only addressing 64=2**6 mem slots in imem
     logic [(n-1):0] readdata;
     logic [(r-1):0] imem_addr;
 
+
+  // dff #(n)    prog_counter(clk, 1'b0, reset, 1'b1, {11'b0, imem_addr}, {11'b0,imem_addr});
    initial begin
         $dumpfile("imem.vcd");
         $dumpvars(0, uut);
@@ -33,6 +37,7 @@ module tb_imem;
         #10 imem_addr <= #(r)'b000000;
         #10 imem_addr <= #(r)'b000001;
         #10 imem_addr <= #(r)'b000010;
+        #10
         $finish;
     end
 

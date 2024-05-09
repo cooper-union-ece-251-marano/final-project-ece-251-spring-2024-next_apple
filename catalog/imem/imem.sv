@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 // The Cooper Union
 // ECE 251 Spring 2024
-// Engineer: Prof Rob Marano
+// Engineer: Lamiya Rangwala, Dylan Meyer O'Connor
 // 
 //     Create Date: 2023-02-07
 //     Module Name: imem
@@ -17,7 +17,7 @@
 
 module imem
 // n=bit length of register; r=bit length of addr to limit memory and not crash your verilog emulator
-    #(parameter n = 32, parameter r = 6)(
+    #(parameter n = 16, parameter r = 5)( // what should we make r?
     //
     // ---------------- PORT DEFINITIONS ----------------
     //
@@ -27,7 +27,7 @@ module imem
     //
     // ---------------- MODULE DESIGN IMPLEMENTATION ----------------
     //
-    logic [(n-1):0] RAM[0:(2**r-1)];
+    logic [(n-1):0] RAM[0:(2**r-1)]; //32 lines because 5 bit
 
   initial
     begin

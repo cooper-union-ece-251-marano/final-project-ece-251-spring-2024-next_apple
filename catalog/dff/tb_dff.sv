@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 // The Cooper Union
 // ECE 251 Spring 2024
-// Engineer: Prof Rob Marano
+// Engineers: Dylan Meyer-O'Connor & Lamiya Rangwala
 // 
 //     Create Date: 2023-02-07
 //     Module Name: tb_dff
@@ -18,40 +18,45 @@
 `include "../clock/clock.sv"
 
 module tb_dff;
-    parameter n = 32; // #bits for an operand
-    wire clk;
-    logic enable;
-    logic reset;
-    logic [(n-1):0] d;
-    logic [(n-1):0] q;
-
+    parameter n = 16; // #bits for an operand
+    wire CLK;
+    logic EN;
+    logic CLK_EN;
+    logic RESET;
+    logic SET;
+    logic [(n-1):0] D;
+    logic [(n-1):0] Q;
+   
    initial begin
         $dumpfile("dff.vcd");
         $dumpvars(0, uut0, uut1);
         //$monitor("d = %b (0x%0h)(%0d) q = %b (0x%0h)(%0d) ", d,d,d,q,q,q);
-        $monitor("time=%0t \t d=%h q=%h",$realtime, d, q);
+        $monitor("time=%0t \t r=%h d=%h q=%h",$realtime, RESET, D, Q);
     end
 
     initial begin
-        d <= #n'h8000;
-        enable <= 0;
-        #10 enable <= 1;
-        #10 reset <= 1;
-        #20 d <= #n'h0001;
-        #10 reset <= 0;
-        #10 reset <=0;
-        #20 d <= #n'h0001;
-        #100 enable <= 0;
+	CLK_EN <= 1;
+        D <= #n'h0000;
+        EN <= 0;
+	#10 D <= #n'h8000;
+        #10 EN <= 1;
+        #10 RESET <= 1;
+        #20 D <= #n'h0001;
+        #10 RESET <= 0;
+        #10 RESET <=0;
+	#10 SET <= 1;
+
+    //    #20 D <= #n'h8000;
+   //     #100 EN <= 0;
         $finish;        
     end
 
     dff uut0(
-        .CLOCK(clk), .RESET(reset), .D(d), .Q(q)
-    );
+        .clk(CLK), .set(SET), .reset(RESET), .enable(EN), .d(D), .q(Q));
 
    clock uut1(
-        .ENABLE(enable),
-        .CLOCK(clk)
+        .en(CLK_EN),
+        .clock(CLK)
     );
 endmodule
 `endif // TB_DFF

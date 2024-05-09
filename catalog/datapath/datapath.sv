@@ -19,52 +19,75 @@
 `include "../alu/alu.sv"
 `include "../dff/dff.sv"
 `include "../adder/adder.sv"
-`include "../sl2/sl2.sv"
+`include "../sl1/sl1.sv"
 `include "../mux2/mux2.sv"
 `include "../signext/signext.sv"
 
 module datapath
-    #(parameter n = 32)(
+    #(parameter n = 16)(
     //
     // ---------------- PORT DEFINITIONS ----------------
     //
-    input  logic        clk, reset,
-    input  logic        memtoreg, pcsrc,
+    input  logic        clk, reset, //pc_enable should be 1. reset should be 0, set should be 0.
+    input  logic        memtoreg, pcsrc,      //all these come from controller
     input  logic        alusrc, regdst,
     input  logic        regwrite, jump,
     input  logic [2:0]  alucontrol,
-    output logic        zero,
+    output logic        zero,                 //where is memwrite?
     output logic [(n-1):0] pc,
     input  logic [(n-1):0] instr,
     output logic [(n-1):0] aluout, writedata,
-    input  logic [(n-1):0] readdata
+    input  logic [(n-1):0] readdata           //comes from cpu.sv. this is what will go into $rd
 );
+
     //
     // ---------------- MODULE DESIGN IMPLEMENTATION ----------------
     //
-    logic [4:0]  writereg;
-    logic [(n-1):0] pcnext, pcnextbr, pcplus4, pcbranch;
-    logic [(n-1):0] signimm, signimmsh;
-    logic [(n-1):0] srca, srcb;
-    logic [(n-1):0] result;
+    logic [2:0]  writereg; // come from RegDst mux
+    wire [(n-1):0] pcnext, pcnextbr, pcplus4, pcbranch;
+    logic [(n-1):0] signimm, signimmsh; // comes from instr[6:0]
+    logic [(n-1):0] srca, srcb; // comes from reg file and ALUsrc mux
+    logic [(n-1):0] result; // comes from MemToReg mux
+
+    //  initial begin
+    //      pcnext <= 16'b0;
+    //  end
 
     // "next PC" logic
-    dff #(n)    pcreg(clk, reset, pcnext, pc);
-    adder       pcadd1(pc, 32'b100, pcplus4);
-    sl2         immsh(signimm, signimmsh);
-    adder       pcadd2(pcplus4, signimmsh, pcbranch);
-    mux2 #(n)   pcbrmux(pcplus4, pcbranch, pcsrc, pcnextbr);
-    mux2 #(n)   pcmux(pcnextbr, {pcplus4[31:28], instr[25:0], 2'b00}, jump, pcnext);
+    // dff #(n)    prog_counter(clk, 1'b0, reset, 1'b1, pcnext, pc);
+    //LOOK AT PCNEXT, PCNEXTBR
+
+    // //seems that pc is never initialized??
+    // initial begin 
+    //     pc = 16'b0;
+    // end
+    // initial begin 
+    //     #10 reset = 1;
+    //     #10 reset =
+    // end
+    // initial begin 
+    //     signimm = instr[6:0];
+    //     signimmsh = instr[6:0];
+    // end
+
+    dff #(n)    prog_counter(clk, 1'b0, reset, 1'b1, pcnext, pc);
+    adder       pcadd2(pc, 16'd1, 1'b0, pcplus4, cout);
+    sl1         immsh(signimm, signimmsh);
+    adder       pcadd22(pcplus4, signimmsh, 1'b0, pcbranch, cout2);
+    mux2 #(n)   pcbrmux(pcbranch, pcplus4, pcsrc, pcnextbr);
+    mux2 #(n)   pcmux({pcplus4[15:14], instr[12:0], 1'b0}, pcnextbr, jump, pcnext);
 
     // register file logic
-    regfile     rf(clk, regwrite, instr[25:21], instr[20:16], writereg, result, srca, writedata);
-    mux2 #(5)   wrmux(instr[20:16], instr[15:11], regdst, writereg);
-    mux2 #(n)   resmux(aluout, readdata, memtoreg, result);
-    signext     se(instr[15:0], signimm);
+    regfile     registers(clk, regwrite, instr[12:10], instr[9:7], writereg, result, srca, writedata);
+    mux2 #(3)   wrmux(instr[9:7], instr[6:4], regdst, writereg);
+    mux2 #(n)   resmux(readdata, aluout, memtoreg, result);
+    signext     se(instr[6:0], signimm);
 
     // ALU logic
     mux2 #(n)   srcbmux(writedata, signimm, alusrc, srcb);
-    alu         alu(clk, srca, srcb, alucontrol, aluout, zero);
+    alu         alu(srca, srcb, alucontrol, aluout, zero); 
+
+
 
 endmodule
 

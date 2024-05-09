@@ -18,8 +18,8 @@
 `include "../clock/clock.sv"
 
 module tb_dmem;
-    parameter n = 32; // bit length of registers/memory
-    parameter r = 6; // we are only addressing 64=2**6 mem slots in imem
+    parameter n = 16; // bit length of registers/memory
+    parameter r = 5; // we are only addressing 64=2**6 mem slots in imem
     logic [(n-1):0] readdata, writedata;
     logic [(n-1):0] dmem_addr;
     logic write_enable;
@@ -50,15 +50,15 @@ module tb_dmem;
     end
 
    dmem uut(
-        .clk(clk),
-        .write_enable(write_enable),
+        .clock(clk),
+        .memWrite(write_enable),
         .addr(dmem_addr),
-        .writedata(writedata),
-        .readdata(readdata)
+        .writeData(writedata),
+        .readData(readdata)
     );
     clock uut1(
-        .ENABLE(clock_enable),
-        .CLOCK(clk)
+        .en(clock_enable),
+        .clock(clk)
     );
 endmodule
 

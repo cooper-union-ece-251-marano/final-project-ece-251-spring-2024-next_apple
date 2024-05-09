@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 // The Cooper Union
 // ECE 251 Spring 2024
-// Engineer: Prof Rob Marano
+// Engineer: Lamiya Rangwala, Dylan Meyer O'Connor
 // 
 //     Create Date: 2023-02-07
 //     Module Name: cpu
@@ -19,7 +19,7 @@
 `include "../datapath/datapath.sv"
 
 module cpu
-    #(parameter n = 32)(
+    #(parameter n = 16)(
     //
     // ---------------- PORT DEFINITIONS ----------------
     //
@@ -33,17 +33,18 @@ module cpu
     //
     // ---------------- MODULE DESIGN IMPLEMENTATION ----------------
     //
-
+    
     // cpu internal components
     logic       memtoreg, alusrc, regdst, regwrite, jump, pcsrc, zero;
     logic [2:0] alucontrol;
+
     
-    controller c(instr[(31):26], instr[5:0], zero,
+    controller c(instr[(15):13], instr[2:0], zero,
                     memtoreg, memwrite, pcsrc,
-                    alusrc, regdst, regwrite, jump,
+                    alusrc, regdst, regwrite, jump, branch,
                     alucontrol);
 
-    datapath dp(clk, reset, memtoreg, pcsrc,
+    datapath dp(clk, reset, memtoreg, pcsrc, //added 1 after reset b/c pc_enable must equal 1 to function
                     alusrc, regdst, regwrite, jump,
                     alucontrol,
                     zero, pc, instr,

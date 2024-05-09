@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 // The Cooper Union
 // ECE 251 Spring 2024
-// Engineer: Prof Rob Marano
+// Engineer: Lamiya Rangwala, Dylan Meyer O'Connor
 // 
 //     Create Date: 2023-02-07
 //     Module Name: computer
@@ -20,7 +20,7 @@
 `include "../dmem/dmem.sv"
 
 module computer
-    #(parameter n = 32)(
+    #(parameter n = 16)(
     //
     // ---------------- PORT DEFINITIONS ----------------
     //
@@ -38,7 +38,10 @@ module computer
     // the RISC CPU
     cpu mips(clk, reset, pc, instr, memwrite, dataadr, writedata, readdata);
     // the instruction memory ("text segment") in main memory
-    imem imem(pc[7:2], instr);
+
+    imem imem(pc[4:0], instr);  //not sure what pc[7:2] is, but made it pc[7:1] bc our instructions are aligned by 2 bytes, not 4
+
+
     // the data memory ("data segment") in main memory
     dmem dmem(clk, memwrite, dataadr, writedata, readdata);
 

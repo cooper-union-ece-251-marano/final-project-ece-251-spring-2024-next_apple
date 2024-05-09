@@ -1,11 +1,11 @@
 //////////////////////////////////////////////////////////////////////////////////
 // The Cooper Union
 // ECE 251 Spring 2024
-// Engineer: Prof Rob Marano
+// Engineer: Dylan Meyer-O'Connor & Lamiya Rangwala
 // 
-//     Create Date: 2023-02-07
+//     Create Date: 4/28/2024
 //     Module Name: signext
-//     Description: 16 to 32 bit sign extender
+//     Description: 8 to 16 bit sign extender
 //
 // Revision: 1.0
 //
@@ -16,17 +16,17 @@
 `timescale 1ns/100ps
 
 module signext
-    #(parameter n = 32, i = 16)(
+    #(parameter n = 16, i = 7)(
     //
     // ---------------- PORT DEFINITIONS ----------------
     //
-    input  logic [(i-1):0] A,
-    output logic [(n-1):0] Y
+    input  logic [(i-1):0] a,
+    output logic [(n-1):0] out
 );
     //
     // ---------------- MODULE DESIGN IMPLEMENTATION ----------------
     //
-    assign Y = { {n{A[(i-1)]}}, A}; // sign extend (i-1)th bit i bits to the left.
+    assign out = { {n{a[(i-1)]}}, a}; // sign extend (i-1)th bit i bits to the left.
 endmodule
 
 `endif // SIGNEXT

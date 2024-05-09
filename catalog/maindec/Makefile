@@ -17,7 +17,7 @@ COMPONENT = maindec
 SRC = $(wildcard *.sv)
 SIM_ARGS=+a=3 +b=2 +s=0
 TBOUTPUT = $(COMPONENT).vcd	# THIS NEEDS TO MATCH THE OUTPUT FILE
-									# FROM YOUR TESTBENCH
+# FROM YOUR TESTBENCH
 ###############################################################################
 # BE CAREFUL WHEN CHANGING ITEMS BELOW THIS LINE
 ###############################################################################
@@ -28,7 +28,7 @@ VIEWER = gtkwave #works on your host, not docker container since it's a GUI
 #TOOL OPTIONS
 COFLAGS = -g2012 #-v
 SFLAGS = -M . #-v
-SOUTPUT = -lxt2		#SIMULATOR OUTPUT TYPE
+SOUTPUT = -lxt2	#SIMULATOR OUTPUT TYPE
 #TOOL OUTPUT
 #COUTPUT = compiler.out			#COMPILER OUTPUT
 ###############################################################################

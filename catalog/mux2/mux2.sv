@@ -1,11 +1,12 @@
 //////////////////////////////////////////////////////////////////////////////////
 // The Cooper Union
 // ECE 251 Spring 2024
-// Engineer: Prof Rob Marano
+// Engineer: Dylan Meyer-O'Connor & Lamiya Rangwala
 // 
-//     Create Date: 2023-02-07
+//     Create Date: 4/27/2024
 //     Module Name: mux2
-//     Description: 2 to 1 multiplexer
+//     Description: 2:1 multiplexer
+//
 //
 // Revision: 1.0
 //
@@ -16,18 +17,18 @@
 `timescale 1ns/100ps
 
 module mux2
-    #(parameter n = 32)(
+    #(parameter n = 16)(
     //
     // ---------------- PORT DEFINITIONS ----------------
     //
-    input  logic [(n-1):0] D0, D1,
-    input  logic S,
-    output logic [(n-1):0] Y
+    input  logic [(n-1):0] a, b,
+    input  logic select,
+    output wire [(n-1):0] out
 );
     //
     // ---------------- MODULE DESIGN IMPLEMENTATION ----------------
     //
-    assign Y = S ? D1 : D0;
+    assign out = select ? a : b;
 endmodule
 
 `endif // MUX2
