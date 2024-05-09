@@ -29,6 +29,9 @@ Instruction Format:
 Diagram:
 ![Image (3)](https://github.com/cooper-union-ece-251-marano/final-project-ece-251-spring-2024-next_apple/assets/112995348/36b7977e-6171-4903-a78c-42cc3e6d8a93)
 
+Timing diagram for R and I type instructions:
+![image](https://github.com/cooper-union-ece-251-marano/final-project-ece-251-spring-2024-next_apple/assets/112995348/9786c6ff-76e4-4f2e-86fe-48c89a87cec9)
+
 Discussion:
 Although our project ultimately was not able to compile and run, we learned a lot in getting to this point. We created test benches for each module and ensured that each module works, excluding the datapath. After days of troubleshooting and debugging, we understood that there is a problem in how the modules are instantiated and connected together.
 Despite these shortcomings, we learned a lot about how a CPU and processor is built from simple digital components, and we are excited to see where this knowledge will take us in future classes.
