@@ -39,13 +39,15 @@ module regfile
     // note: for pipelined processor, write third port
     // on falling edge of clk
 
-    always_ff @(posedge clock, negedge clock)
-        if (regWrite) registers[writeAddr3] <= writeData3;	
-
+    always_ff @(negedge clock) begin
+        if (regWrite) registers[writeAddr3] <= writeData3;
+        readData1 <= (readAddr1) ? registers[readAddr1] : 16'b0;	
+        readData2 <= (readAddr2) ? registers[readAddr2] : 16'b0;
+    end 
     // assign the zero register/write data to registers
     
-    assign readData1 = (readAddr1 != 0) ? registers[readAddr1] : 0;
-    assign readData2 = (readAddr2 != 0) ? registers[readAddr2] : 0;
+    // assign readData1 = (readAddr1) ? registers[readAddr1] : 16'b0;
+    // assign readData2 = (readAddr2) ? registers[readAddr2] : 16'b0;
 endmodule
 
 `endif // REGFILE
