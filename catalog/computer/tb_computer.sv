@@ -40,7 +40,7 @@ module tb_computer;
     secondTest = 1'b0;
    
     $dumpfile("tb_computer.vcd");
-    $dumpvars(0,dut1,clk,reset,writedata,dataadr,memwrite);
+    $dumpvars(0,dut1,dut,clk,reset,writedata,dataadr,memwrite);
     $monitor("t=%t\t0x%7h\t%7d\t%8d",$realtime,writedata,dataadr,memwrite);
     // $dumpvars(0,clk,a,b,ctrl,result,zero,negative,carryOut,overflow);
     // $display("Ctl Z  N  O  C  A                    B                    ALUresult");
@@ -49,10 +49,15 @@ module tb_computer;
 
   // initialize test
   initial begin
-    #0 clk_enable <= 0; #50 reset <= 1; # 50; reset <= 0; #50 clk_enable <= 1;
-    #100 $finish;
+    #0 clk_enable <= 0; #50 reset <= 1; # 50; #50 clk_enable <= 1;
+    #10 
+    #10 reset<=0;
+    #300
+    $finish;
   end
-
+// always @(posedge clk) begin
+//   $display("PC: %h, PCnext: %h, PCplus4: %h, PCbranch: %h, SignImm: %h, SignImmSh: %h, Instr: %h", pc, pcnext, pcplus4, pcbranch, signimm, signimmsh, instr);
+// end
   // monitor what happens at posedge of clock transition
   always @(posedge clk)
   begin

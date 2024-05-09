@@ -20,7 +20,7 @@ module dff
     //
     input  logic clk, set, reset, enable,
     input  wire [(n-1):0] d,
-    output reg [(n-1):0] q //q_n
+    output logic [(n-1):0] q //q_n
 );
     //
     // ---------------- MODULE DESIGN IMPLEMENTATION ----------------

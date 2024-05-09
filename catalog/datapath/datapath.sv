@@ -49,20 +49,33 @@ module datapath
     logic [(n-1):0] srca, srcb; // comes from reg file and ALUsrc mux
     logic [(n-1):0] result; // comes from MemToReg mux
 
-    // initial begin
-    // pcnext <= 16'b0;
-    // end
+    //  initial begin
+    //      pcnext <= 16'b0;
+    //  end
 
     // "next PC" logic
     // dff #(n)    prog_counter(clk, 1'b0, reset, 1'b1, pcnext, pc);
+    //LOOK AT PCNEXT, PCNEXTBR
 
+    // //seems that pc is never initialized??
+    // initial begin 
+    //     pc = 16'b0;
+    // end
+    // initial begin 
+    //     #10 reset = 1;
+    //     #10 reset =
+    // end
+    // initial begin 
+    //     signimm = instr[6:0];
+    //     signimmsh = instr[6:0];
+    // end
 
     dff #(n)    prog_counter(clk, 1'b0, reset, 1'b1, pcnext, pc);
     adder       pcadd2(pc, 16'b0000000000000001, 1'b0, pcplus4, cout);
     sl1         immsh(signimm, signimmsh);
     adder       pcadd22(pcplus4, signimmsh, 1'b0, pcbranch, cout2);
-    mux2 #(n)   pcbrmux(pcplus4, pcbranch, pcsrc, pcnextbr);
-    mux2 #(n)   pcmux(pcnextbr, {pcplus4[15:14], instr[12:0], 1'b0}, jump, pcnext);
+    mux2 #(n)   pcbrmux(pcbranch, pcplus4, pcsrc, pcnextbr);
+    mux2 #(n)   pcmux({pcplus4[15:14], instr[12:0], 1'b0}, pcnextbr, jump, pcnext);
 
     // register file logic
     regfile     registers(clk, regwrite, instr[12:10], instr[9:7], writereg, result, srca, writedata);

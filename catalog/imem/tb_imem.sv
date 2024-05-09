@@ -25,7 +25,7 @@ module tb_imem;
     logic [(r-1):0] imem_addr;
 
 
-   dff #(n)    prog_counter(clk, 1'b0, reset, 1'b1, {11'b0, imem_addr}, {11'b0,imem_addr});
+  // dff #(n)    prog_counter(clk, 1'b0, reset, 1'b1, {11'b0, imem_addr}, {11'b0,imem_addr});
    initial begin
         $dumpfile("imem.vcd");
         $dumpvars(0, uut);
@@ -37,6 +37,7 @@ module tb_imem;
         #10 imem_addr <= #(r)'b000000;
         #10 imem_addr <= #(r)'b000001;
         #10 imem_addr <= #(r)'b000010;
+        #10
         $finish;
     end
 

@@ -15,6 +15,7 @@
 
 `timescale 1ns/100ps
 `include "datapath.sv"
+`include "../clock/clock.sv"
 
 module tb_datapath;
     parameter N = 16;
@@ -24,16 +25,21 @@ module tb_datapath;
     logic ALUSRC, REGDST, REGWRITE, JUMP;
     logic [2:0] ALUCONTROL;
     wire ZERO;
-    wire [N-1:0] PC;
+    logic [N-1:0] PC;
     logic [N-1:0] INSTR;
     wire [N-1:0] ALUOUT, WRITEDATA;
     logic [N-1:0] READDATA;
-    
+    logic clk_enable;
+
+    clock dut1(.en(clk_enable), .clock(CLK));
+
     initial begin
     	$dumpfile("datapath.vcd");
-	    $dumpvars(0, uut);
+	    $dumpvars(0, uut, dut1);
+      
 //	$monitor("",);
-        $monitor("time=%0t \t alu control = %b, \t alu out = %h \t \tinstr= %h\t pc= %b\t read data= %b ",$realtime,ALUCONTROL, ALUOUT,INSTR,PC,READDATA);
+        $monitor("|clk-%b|time=%0t, alu control = %b, alu out = %h,\ninstr= %h\t pc= %h\nread data= %b \n",CLK,$realtime,ALUCONTROL, 
+        ALUOUT,INSTR,PC,READDATA);
 //	$monitor("")
     end
 
@@ -41,7 +47,8 @@ module tb_datapath;
   
 
     initial begin
-        CLK <= 0;
+        #0 clk_enable <=0;
+   //     CLK <= 0;
         RESET <= 1;
         REGDST <= 0;
         REGWRITE <= 0;
@@ -51,19 +58,31 @@ module tb_datapath;
         ALUCONTROL <= 0;
         INSTR <= 0;
         READDATA <= 0;
+        clk_enable <= 1;
+        PCSRC <= 0;
+        #100 $finish;
     end
-    always #5 CLK <= ~CLK;
+   // always #5 CLK <= ~CLK;
 
     initial begin
-    #10 CLK <= 1;
+ //   #10 CLK <= 1;
+ #10 RESET <= 0;
     #10 REGDST <= 1;
     #10 REGWRITE <= 1;
     #10 MEMTOREG <= 0;
-    #10 JUMP <= 0;
+    #10 JUMP <= 1;
     #10 ALUSRC <= 0;
+    #10 PCSRC <= 0;
     #10 ALUCONTROL <= 4'b0000; // Provide ALU control signal for your instruction
     #10 INSTR <= 16'h208a; // Provide instruction
     #10 READDATA <= 16'h0001;
+    #10
+    #10
+    #10
+    #10
+    #1000
+    #1000
+    
     // #10 WRITEDATA <= 16'h00ba;
     $finish;
     end
