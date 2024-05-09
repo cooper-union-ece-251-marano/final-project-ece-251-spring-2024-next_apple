@@ -71,7 +71,7 @@ module datapath
     // end
 
     dff #(n)    prog_counter(clk, 1'b0, reset, 1'b1, pcnext, pc);
-    adder       pcadd2(pc, 16'b0000000000000001, 1'b0, pcplus4, cout);
+    adder       pcadd2(pc, 16'd1, 1'b0, pcplus4, cout);
     sl1         immsh(signimm, signimmsh);
     adder       pcadd22(pcplus4, signimmsh, 1'b0, pcbranch, cout2);
     mux2 #(n)   pcbrmux(pcbranch, pcplus4, pcsrc, pcnextbr);
