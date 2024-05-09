@@ -30,7 +30,7 @@ module regfile
     //
     // ---------------- MODULE DESIGN IMPLEMENTATION ----------------
     //
-    logic [(n-1):0] registers[(2**5-1):0]; // registers is an array of 32 registers each having n-1 bits
+    logic [(n-1):0] registers[(2**r-1):0]; // registers is an array of 32 registers each having n-1 bits
 
     // three ported register file
     // read two ports combinationally

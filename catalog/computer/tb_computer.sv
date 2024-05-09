@@ -70,19 +70,18 @@ module tb_computer;
       $display("\t+$v0 = 0x%4h",dut.mips.dp.registers.registers[0]);
       $display("\t+$v1 = 0x%4h",dut.mips.dp.registers.registers[1]);
       $display("\t+$a0 = 0x%4h",dut.mips.dp.registers.registers[2]);
-  //    $display("\t+$a1 = 0x%4h",dut.mips.dp.rf.rf[5]);
-  //    $display("\t+$t0 = 0x%4h",dut.mips.dp.rf.rf[8]);
-  //    $display("\t+$t1 = 0x%4h",dut.mips.dp.rf.rf[9]);
-  //    $display("\t+regfile -- ra1 = %d",dut.mips.dp.rf.readAddr1);
-  //    $display("\t+regfile -- ra2 = %d",dut.mips.dp.rf.readAddr2);
- //     $display("\t+regfile -- we3 = %d",dut.mips.dp.rf.we3);
- //     $display("\t+regfile -- wa3 = %d",dut.mips.dp.rf.writeAddr3);
- //     $display("\t+regfile -- wd3 = %d",dut.mips.dp.rf.writeData3);
- //     $display("\t+regfile -- rd1 = %d",dut.mips.dp.rf.readData1); !!this
- //     should work but doesnt... same w readData2
- //     $display("\t+regfile -- rd2 = %d",dut.mips.dp.rf.readData2);
+     $display("\t+$a1 = 0x%4h",dut.mips.dp.registers.registers[5]);
+    //  $display("\t+$t0 = 0x%4h",dut.mips.dp.registers.registers[8]);
+    //  $display("\t+$t1 = 0x%4h",dut.mips.dp.registers.registers[9]);
+     $display("\t+regfile -- ra1 = %d",dut.mips.dp.registers.readAddr1);
+     $display("\t+regfile -- ra2 = %d",dut.mips.dp.registers.readAddr2);
+    //  $display("\t+regfile -- we3 = %d",dut.mips.dp.registers.we3);
+     $display("\t+regfile -- wa3 = %d",dut.mips.dp.registers.writeAddr3);
+     $display("\t+regfile -- wd3 = %d",dut.mips.dp.registers.writeData3);
+     $display("\t+regfile -- rd1 = %d",dut.mips.dp.registers.readData1); 
+     $display("\t+regfile -- rd2 = %d",dut.mips.dp.registers.readData2);
       $display("\t+RAM[%4d] = %4d",dut.dmem.addr,dut.dmem.readData);
-      $display("writedata\tdataadr\tmemwrite");
+    //   $display("writedata\tdataadr\tmemwrite");
   end
 
   // run program
